@@ -16,6 +16,8 @@ class PKAssetGridViewController: PKBaseViewController {
     //MARK: - property
     var fetchResult: PHFetchResult<PHAsset>!
     fileprivate var thumbnailSize: CGSize!
+    /// 选中的asset
+    fileprivate var selectAssets: [PHAsset] = []
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -74,7 +76,7 @@ private extension PKAssetGridViewController {
         self.photoCollectionView.register(UINib(nibName: "PKPhotoCollectionCell", bundle: nil), forCellWithReuseIdentifier: PKPhotoCollectionCell.identifier)
         self.view.addSubview(self.photoCollectionView)
         
-        self.photoCollectionView.scrollToItem(at: IndexPath(item: self.fetchResult.count, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: false)
+//        self.photoCollectionView.scrollToItem(at: IndexPath(item: self.fetchResult.count, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: false)
     }
     
     func setupConstraints() {
@@ -92,6 +94,7 @@ private extension PKAssetGridViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension PKAssetGridViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.fetchResult.count
@@ -99,10 +102,12 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PKPhotoCollectionCell.identifier, for: indexPath) as! PKPhotoCollectionCell
-        
+
         let asset = self.fetchResult.object(at: indexPath.item)
+        cell.item = indexPath.item
+        cell.delegate = self
         cell.representedAssetIdentifier = asset.localIdentifier
-        
+        cell.number = self.selectAssets.index(of: asset)
         PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.thumbnailImage = image
@@ -111,9 +116,34 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
         return cell
     }
     
-    
 }
 
+// MARK: - UICollectionViewDelegate
 extension PKAssetGridViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
+    func collectionCell(_ cell: PKPhotoCollectionCell, didSelectItemAt item: Int) {
+        let maxCount = PKConfiguration.shared.selectMaxCount
+        if self.selectAssets.count >= maxCount {
+            let alertVC = UIAlertController(title: "你最多选择\(maxCount)照片", message: nil, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+            return
+        }
+        let asset = self.fetchResult.object(at: item)
+        self.selectAssets.append(asset)
+        self.photoCollectionView.reloadData()
+    }
     
+    func collectionCell(_ cell: PKPhotoCollectionCell, didDeselectItemAt item: Int) {
+        let asset = self.fetchResult.object(at: item)
+        if let index = self.selectAssets.index(of: asset) {
+            self.selectAssets.remove(at: index)
+        }
+        self.photoCollectionView.reloadData()
+    }
 }

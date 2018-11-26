@@ -30,6 +30,13 @@
 		73C5ACDE21A9646F00BFF89F /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACDD21A9646F00BFF89F /* add@3x.png */; };
 		73C5ACE121A9648F00BFF89F /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACDF21A9648F00BFF89F /* circle@2x.png */; };
 		73C5ACE221A9648F00BFF89F /* circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACE021A9648F00BFF89F /* circle@3x.png */; };
+		73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACE821ABE78900BFF89F /* PKConfiguration.swift */; };
+		73C5ACEC21ABE99B00BFF89F /* btn_unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACEA21ABE99B00BFF89F /* btn_unselected@3x.png */; };
+		73C5ACED21ABE99B00BFF89F /* btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACEB21ABE99B00BFF89F /* btn_unselected@2x.png */; };
+		73C5ACEF21ABF4A700BFF89F /* PKPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACEE21ABF4A700BFF89F /* PKPreviewController.swift */; };
+		73C5ACF121ABF59B00BFF89F /* PKNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACF021ABF59B00BFF89F /* PKNavigationBarView.swift */; };
+		73C5ACF421ABF82D00BFF89F /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACF221ABF82D00BFF89F /* back@3x.png */; };
+		73C5ACF521ABF82D00BFF89F /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACF321ABF82D00BFF89F /* back@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +69,13 @@
 		73C5ACE021A9648F00BFF89F /* circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@3x.png"; sourceTree = "<group>"; };
 		73C5ACE321ABB1F700BFF89F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		73C5ACE421ABB1F700BFF89F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		73C5ACE821ABE78900BFF89F /* PKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PKConfiguration.swift; path = PKPhotoBrowser/PhotoBrowser/PKConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		73C5ACEA21ABE99B00BFF89F /* btn_unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unselected@3x.png"; sourceTree = "<group>"; };
+		73C5ACEB21ABE99B00BFF89F /* btn_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unselected@2x.png"; sourceTree = "<group>"; };
+		73C5ACEE21ABF4A700BFF89F /* PKPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKPreviewController.swift; sourceTree = "<group>"; };
+		73C5ACF021ABF59B00BFF89F /* PKNavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKNavigationBarView.swift; sourceTree = "<group>"; };
+		73C5ACF221ABF82D00BFF89F /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
+		73C5ACF321ABF82D00BFF89F /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +210,10 @@
 		73C5ACBF21A8083E00BFF89F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				73C5ACF321ABF82D00BFF89F /* back@2x.png */,
+				73C5ACF221ABF82D00BFF89F /* back@3x.png */,
+				73C5ACEB21ABE99B00BFF89F /* btn_unselected@2x.png */,
+				73C5ACEA21ABE99B00BFF89F /* btn_unselected@3x.png */,
 				73C5ACDB21A9646900BFF89F /* add@2x.png */,
 				73C5ACDD21A9646F00BFF89F /* add@3x.png */,
 				73C5ACDF21A9648F00BFF89F /* circle@2x.png */,
@@ -208,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				73C5ACC321A80A5500BFF89F /* PKConstants.swift */,
+				73C5ACE821ABE78900BFF89F /* PKConfiguration.swift */,
 				73C5ACD021A903B700BFF89F /* Base */,
 			);
 			path = Common;
@@ -241,6 +260,7 @@
 		73C5ACCC21A900B600BFF89F /* Preview */ = {
 			isa = PBXGroup;
 			children = (
+				73C5ACEE21ABF4A700BFF89F /* PKPreviewController.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -248,6 +268,7 @@
 		73C5ACD021A903B700BFF89F /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				73C5ACF021ABF59B00BFF89F /* PKNavigationBarView.swift */,
 				73C5ACD121A903CD00BFF89F /* PKBaseViewController.swift */,
 			);
 			path = Base;
@@ -316,9 +337,13 @@
 			files = (
 				73C5ACBE21A8025C00BFF89F /* PKAlbumListCell.xib in Resources */,
 				73C5ACDE21A9646F00BFF89F /* add@3x.png in Resources */,
+				73C5ACF421ABF82D00BFF89F /* back@3x.png in Resources */,
+				73C5ACEC21ABE99B00BFF89F /* btn_unselected@3x.png in Resources */,
 				73C5ACDA21A9636F00BFF89F /* PKPhotoCollectionCell.xib in Resources */,
 				73C5ACDC21A9646A00BFF89F /* add@2x.png in Resources */,
 				73C5ACE221A9648F00BFF89F /* circle@3x.png in Resources */,
+				73C5ACED21ABE99B00BFF89F /* btn_unselected@2x.png in Resources */,
+				73C5ACF521ABF82D00BFF89F /* back@2x.png in Resources */,
 				73C5ACA321A7ECA400BFF89F /* LaunchScreen.storyboard in Resources */,
 				73C5ACA021A7ECA400BFF89F /* Assets.xcassets in Resources */,
 				73C5AC9B21A7ECA300BFF89F /* Main.storyboard in Resources */,
@@ -372,6 +397,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C5ACEF21ABF4A700BFF89F /* PKPreviewController.swift in Sources */,
+				73C5ACF121ABF59B00BFF89F /* PKNavigationBarView.swift in Sources */,
 				73C5ACC921A8126500BFF89F /* PKImageManager.swift in Sources */,
 				73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */,
 				73C5ACD621A9064A00BFF89F /* PKAssetGridViewController.swift in Sources */,
@@ -379,6 +406,7 @@
 				73C5ACB121A7FA6B00BFF89F /* PKAlbumListController.swift in Sources */,
 				73C5ACCE21A9022000BFF89F /* PKNavViewController.swift in Sources */,
 				73C5ACBA21A7FFDD00BFF89F /* PKAsync.swift in Sources */,
+				73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */,
 				73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */,
 				73C5ACB521A7FD8700BFF89F /* PKLoadingTool.swift in Sources */,
 				73C5ACB621A7FD8700BFF89F /* PKLoadingView.swift in Sources */,

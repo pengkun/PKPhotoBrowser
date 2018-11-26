@@ -23,8 +23,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8Z-gh-3fj">
-                        <rect key="frame" x="48" y="0.0" width="32" height="32"/>
-                        <state key="normal" image="circle.png"/>
+                        <rect key="frame" x="59" y="1" width="20" height="20"/>
+                        <state key="normal" backgroundImage="btn_unselected.png"/>
                         <connections>
                             <action selector="selectBtnDidClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="X1o-dd-0aq"/>
                         </connections>
@@ -32,10 +32,12 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="m8Z-gh-3fj" firstAttribute="height" secondItem="XVL-O4-Rpc" secondAttribute="height" multiplier="1:4" id="5mG-bb-qor"/>
+                <constraint firstItem="m8Z-gh-3fj" firstAttribute="width" secondItem="XVL-O4-Rpc" secondAttribute="width" multiplier="1:4" id="6hD-if-pof"/>
                 <constraint firstAttribute="trailing" secondItem="XVL-O4-Rpc" secondAttribute="trailing" id="7jQ-78-Bc5"/>
-                <constraint firstItem="m8Z-gh-3fj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="9Do-dN-n1d"/>
+                <constraint firstItem="m8Z-gh-3fj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="1" id="9Do-dN-n1d"/>
                 <constraint firstItem="XVL-O4-Rpc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FAH-rv-jkT"/>
-                <constraint firstAttribute="trailing" secondItem="m8Z-gh-3fj" secondAttribute="trailing" id="RoN-hb-xuu"/>
+                <constraint firstAttribute="trailing" secondItem="m8Z-gh-3fj" secondAttribute="trailing" constant="1" id="RoN-hb-xuu"/>
                 <constraint firstAttribute="bottom" secondItem="XVL-O4-Rpc" secondAttribute="bottom" id="XN6-8D-iAN"/>
                 <constraint firstItem="XVL-O4-Rpc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qia-eA-LSc"/>
             </constraints>
@@ -48,6 +50,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="circle.png" width="32" height="32"/>
+        <image name="btn_unselected.png" width="16" height="16"/>
     </resources>
 </document>

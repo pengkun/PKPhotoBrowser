@@ -1,34 +1,27 @@
 //
-//  PKNavViewController.swift
+//  PKPreviewController.swift
 //  PKPhotoBrowser
 //
-//  Created by pengkun on 2018/11/24.
+//  Created by pengkun on 2018/11/26.
 //  Copyright © 2018 pengkun. All rights reserved.
 //
 
 import UIKit
 
-class PKNavViewController: UINavigationController {
+class PKPreviewController: UIViewController {
 
     //MARK: - ui
-    fileprivate let assetGridVC = PKAssetGridViewController()
+    
     //MARK: - property
-    /// 最多选中张数 
-    var maxSelectCount: Int = 9
+    
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
     }
     
-    required init() {
-        let listVC = PKAlbumListController()
-        super.init(rootViewController: listVC)
-        
-        self.pushViewController(self.assetGridVC, animated: false)
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.hidesBottomBarWhenPushed = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +31,7 @@ class PKNavViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar.setBackgroundImage(PKConfiguration.shared.navBarBackgroundColor.pkext_image, for: UIBarMetrics.default)
+        self.setup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,3 +41,18 @@ class PKNavViewController: UINavigationController {
 
 }
 
+// MARK: - UI初始化
+private extension PKPreviewController {
+    func setup() {
+        self.setupViews()
+        self.setupConstraints()
+    }
+    
+    func setupViews() {
+        
+    }
+    
+    func setupConstraints() {
+        
+    }
+}
