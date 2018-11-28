@@ -56,6 +56,21 @@ private extension PKAssetGridViewController {
     func setupViews() {
         self.navigationItem.title = self.navigationItem.title ?? "相机胶卷"
         
+        let configuration = PKConfiguration.shared
+        
+        let cancelItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelItemDidClick))
+        cancelItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: configuration.navDisBtnTitleColor], for: .normal)
+        self.navigationItem.rightBarButtonItem = cancelItem
+        
+        let backBtn: UIButton = UIButton()
+        backBtn.setImage(configuration.navBackBtnImage, for: .normal)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 60, height: 40)
+        backBtn.contentHorizontalAlignment = .left
+        backBtn.imageView?.contentMode = .scaleAspectFit
+        backBtn.addTarget(self, action: #selector(backItemDidClick), for: .touchUpInside)
+        let backItem = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backItem
+        
         let flowLayout = UICollectionViewFlowLayout()
         let shape: CGFloat = 5
         let layoutWidth = (kPKScreenWidth-shape*5)/4
@@ -63,7 +78,7 @@ private extension PKAssetGridViewController {
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = shape
         flowLayout.minimumInteritemSpacing = shape
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: shape, bottom: 0, right: shape)
+        flowLayout.sectionInset = UIEdgeInsets(top: shape, left: shape, bottom: 0, right: shape)
         
         let scale = UIScreen.main.scale
         let cellSize = flowLayout.itemSize
@@ -75,13 +90,12 @@ private extension PKAssetGridViewController {
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.register(UINib(nibName: "PKPhotoCollectionCell", bundle: nil), forCellWithReuseIdentifier: PKPhotoCollectionCell.identifier)
         self.view.addSubview(self.photoCollectionView)
-        
-//        self.photoCollectionView.scrollToItem(at: IndexPath(item: self.fetchResult.count, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: false)
+    
     }
     
     func setupConstraints() {
         self.photoCollectionView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view).inset(UIEdgeInsets(top: kPKViewTopOffset, left: 0, bottom: 0, right: 0))
+            make.edges.equalTo(self.view)//.inset(UIEdgeInsets(top: kPKViewTopOffset, left: 0, bottom: 0, right: 0))
         }
     }
     
@@ -91,6 +105,17 @@ private extension PKAssetGridViewController {
             allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
             fetchResult = PHAsset.fetchAssets(with: allPhotosOptions)
         }
+    }
+}
+
+// MARK: - 按钮点击事件
+extension PKAssetGridViewController {
+    @objc func cancelItemDidClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func backItemDidClick() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -122,6 +147,10 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
 extension PKAssetGridViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let preVC = PKPreviewController()
+        preVC.selectAssets = self.selectAssets
+        self.navigationController?.pushViewController(preVC, animated: true)
     }
 }
 

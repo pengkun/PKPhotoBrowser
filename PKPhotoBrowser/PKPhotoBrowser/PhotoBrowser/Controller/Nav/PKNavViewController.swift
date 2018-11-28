@@ -38,7 +38,10 @@ class PKNavViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar.setBackgroundImage(PKConfiguration.shared.navBarBackgroundColor.pkext_image, for: UIBarMetrics.default)
+        let configuration = PKConfiguration.shared
+        self.navigationBar.titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: configuration.navTitleColor]
+        self.navigationBar.setBackgroundImage(configuration.navBarBackgroundColor.pkext_image, for: UIBarMetrics.default)
     }
     
     override func didReceiveMemoryWarning() {

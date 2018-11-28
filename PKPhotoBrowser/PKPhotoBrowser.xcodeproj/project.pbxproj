@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49339774940576C7797502D3 /* Pods_PKPhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7193CA93053904497D23AF11 /* Pods_PKPhotoBrowser.framework */; };
+		7333B55A21AE8164006EF9AE /* PKPhotoZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */; };
 		73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */; };
 		73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9721A7ECA300BFF89F /* ViewController.swift */; };
 		73C5AC9B21A7ECA300BFF89F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C5AC9921A7ECA300BFF89F /* Main.storyboard */; };
@@ -37,12 +38,15 @@
 		73C5ACF121ABF59B00BFF89F /* PKNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACF021ABF59B00BFF89F /* PKNavigationBarView.swift */; };
 		73C5ACF421ABF82D00BFF89F /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACF221ABF82D00BFF89F /* back@3x.png */; };
 		73C5ACF521ABF82D00BFF89F /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACF321ABF82D00BFF89F /* back@2x.png */; };
+		73C5ACF721ABFB9500BFF89F /* PKPreviewBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACF621ABFB9500BFF89F /* PKPreviewBottomView.swift */; };
+		73C5ACF921AC0CEB00BFF89F /* PKPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACF821AC0CEB00BFF89F /* PKPreviewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02BB84B75AB3388FFC0F3AA4 /* Pods-PKPhotoBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKPhotoBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PKPhotoBrowser/Pods-PKPhotoBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		18A8B1C32AD34EF81FB33D98 /* Pods-PKPhotoBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKPhotoBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-PKPhotoBrowser/Pods-PKPhotoBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		7193CA93053904497D23AF11 /* Pods_PKPhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PKPhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPhotoZoomView.swift; sourceTree = "<group>"; };
 		73C5AC9221A7ECA300BFF89F /* PKPhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKPhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73C5AC9721A7ECA300BFF89F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 		73C5ACF021ABF59B00BFF89F /* PKNavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKNavigationBarView.swift; sourceTree = "<group>"; };
 		73C5ACF221ABF82D00BFF89F /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		73C5ACF321ABF82D00BFF89F /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		73C5ACF621ABFB9500BFF89F /* PKPreviewBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKPreviewBottomView.swift; sourceTree = "<group>"; };
+		73C5ACF821AC0CEB00BFF89F /* PKPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKPreviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,9 @@
 				73C5ACBC21A8025B00BFF89F /* PKAlbumListCell.xib */,
 				73C5ACD721A9636F00BFF89F /* PKPhotoCollectionCell.swift */,
 				73C5ACD821A9636F00BFF89F /* PKPhotoCollectionCell.xib */,
+				73C5ACF621ABFB9500BFF89F /* PKPreviewBottomView.swift */,
+				73C5ACF821AC0CEB00BFF89F /* PKPreviewCell.swift */,
+				7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -407,9 +416,12 @@
 				73C5ACCE21A9022000BFF89F /* PKNavViewController.swift in Sources */,
 				73C5ACBA21A7FFDD00BFF89F /* PKAsync.swift in Sources */,
 				73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */,
+				73C5ACF721ABFB9500BFF89F /* PKPreviewBottomView.swift in Sources */,
 				73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */,
 				73C5ACB521A7FD8700BFF89F /* PKLoadingTool.swift in Sources */,
+				73C5ACF921AC0CEB00BFF89F /* PKPreviewCell.swift in Sources */,
 				73C5ACB621A7FD8700BFF89F /* PKLoadingView.swift in Sources */,
+				7333B55A21AE8164006EF9AE /* PKPhotoZoomView.swift in Sources */,
 				73C5ACBD21A8025C00BFF89F /* PKAlbumListCell.swift in Sources */,
 				73C5ACC421A80A5500BFF89F /* PKConstants.swift in Sources */,
 				73C5ACD921A9636F00BFF89F /* PKPhotoCollectionCell.swift in Sources */,

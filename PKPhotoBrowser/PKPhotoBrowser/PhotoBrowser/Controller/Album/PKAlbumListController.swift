@@ -59,12 +59,13 @@ private extension PKAlbumListController {
         self.view.addSubview(self.listView)
         
         let cancelItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelItemDidClick))
+        cancelItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PKConfiguration.shared.navDisBtnTitleColor], for: .normal)
         self.navigationItem.rightBarButtonItem = cancelItem
     }
     
     func setupConstraints() {
         self.listView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view).inset(UIEdgeInsets(top: kPKViewTopOffset, left: 0, bottom: 0, right: 0))
+            make.edges.equalTo(self.view)//.inset(UIEdgeInsets(top: kPKViewTopOffset, left: 0, bottom: 0, right: 0))
         }
     }
     

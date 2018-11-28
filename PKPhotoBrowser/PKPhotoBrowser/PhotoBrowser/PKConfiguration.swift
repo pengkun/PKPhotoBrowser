@@ -11,6 +11,7 @@ import UIKit
 
 class PKConfiguration {
     static let shared: PKConfiguration = PKConfiguration()
+    private init() { }
     
     /// 最多选中数量
     let selectMaxCount: Int = 9
@@ -18,9 +19,16 @@ class PKConfiguration {
     var selectedCount: Int = 0
     
     //MARK: - NavBar
+    /// navbar 背景色
     let navBarBackgroundColor: UIColor = UIColor.pkext_rgba(49, 49, 49)
+    /// navbar 字体
     let navTitleFont: UIFont = UIFont.systemFont(ofSize: 17)
+    /// navbar 字体颜色
+    let navTitleColor: UIColor = UIColor.white
+    /// navbar 返回按钮图片
     let navBackBtnImage: UIImage? = UIImage(named: "back")
+    /// navbar 取消按钮字体颜色
+    let navDisBtnTitleColor: UIColor = UIColor.pkext_rgba(42, 127, 249)
     
     //MARK: - PKPhotoCollectionCell
     /// 右上按钮
@@ -28,4 +36,8 @@ class PKConfiguration {
     let btnSelBackgroundColor: UIColor = UIColor.pkext_rgba(42, 127, 249)
     /// 未选中时背景图片
     let btnUnSelBgImage: UIImage? = UIImage(named: "btn_unselected")
+    
+    //MARK: - PKPreviewBottomView
+    /// 预览底部线的颜色
+    let lineColor: UIColor = UIColor.gray
 }
