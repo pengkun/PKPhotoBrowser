@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Photos
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,9 +19,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func albumDidClick(_ sender: Any) {
-        let nav = PKNavViewController()
+        let nav = PKAlbumNavViewController(delegate: self)
         self.navigationController?.present(nav, animated: true , completion: nil)
     }
     
+    func albumController(didFinishPickingPhotos photos: [PHAsset]) {
+        debugPrint("photos = \(photos.count)")
+    }
 }
 

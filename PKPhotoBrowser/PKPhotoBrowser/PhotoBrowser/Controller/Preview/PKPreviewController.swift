@@ -18,6 +18,7 @@ class PKPreviewController: UIViewController {
     fileprivate let rightBtn: UIButton = UIButton()
     fileprivate let flowLayout = UICollectionViewFlowLayout()
     //MARK: - property
+    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     /// 选中的照片集合
     var selectAssetsModel: PKSelectPhotosModel?
     /// 只预览选中的照片时，只操作selectAssetsModel里的对象，selectAssets只用来显示
@@ -117,6 +118,7 @@ private extension PKPreviewController {
         self.rightBtn.addTarget(self, action: #selector(rightBtnDidClick), for: .touchUpInside)
         self.navigationBar.rightItemView = self.rightBtn
         
+        self.bottomView.delegate = self
         self.view.addSubview(self.bottomView)
     }
     
@@ -289,5 +291,12 @@ extension PKPreviewController: UICollectionViewDelegate {
         self.setRightBtnTitle(asset: asset)
         self.bottomView.scrollToItem(asset: asset)
         debugPrint("page = \(page)")
+    }
+}
+
+extension PKPreviewController: PKPreviewBottomViewDelegate {
+    func previewDoneDidClick() {
+        self.pickDelegate?.albumController(didFinishPickingPhotos: self.selectAssetsModel?.selectAssets ?? [])
+        self.dismiss(animated: true , completion: nil)
     }
 }

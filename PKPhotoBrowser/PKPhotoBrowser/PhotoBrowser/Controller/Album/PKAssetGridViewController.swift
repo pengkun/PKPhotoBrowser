@@ -16,6 +16,7 @@ class PKAssetGridViewController: PKBaseViewController {
     fileprivate var photoCollectionView: UICollectionView!
     fileprivate let bottomView: PKGridBottomView = PKGridBottomView()
     //MARK: - property
+    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     var fetchResult: PHFetchResult<PHAsset>!
     fileprivate var thumbnailSize: CGSize!
     /// 选中的asset
@@ -187,6 +188,7 @@ extension PKAssetGridViewController: UICollectionViewDelegate {
         preVC.fetchResult = self.fetchResult
         preVC.selectAssetsModel = self.selectAssetsModel
         preVC.gridSelectItem = indexPath.item
+        preVC.pickDelegate = self.pickDelegate
         self.navigationController?.pushViewController(preVC, animated: true)
     }
 }
@@ -223,6 +225,12 @@ extension PKAssetGridViewController: PKGridBottomViewDelegate {
     func gridBottomViewDidClickPreview() {
         let preVC = PKPreviewController()
         preVC.selectAssetsModel = self.selectAssetsModel
+        preVC.pickDelegate = self.pickDelegate
         self.navigationController?.pushViewController(preVC, animated: true)
+    }
+    
+    func gridBottomViewDoneDidClick() {
+        self.pickDelegate?.albumController(didFinishPickingPhotos: self.selectAssetsModel.selectAssets)
+        self.dismiss(animated: true , completion: nil)
     }
 }

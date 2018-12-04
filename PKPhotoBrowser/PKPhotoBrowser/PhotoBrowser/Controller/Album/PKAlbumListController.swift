@@ -15,6 +15,7 @@ class PKAlbumListController: PKBaseViewController {
     //MARK: - ui
     fileprivate let listView: UITableView = UITableView()
     //MARK: - property
+    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     fileprivate let imageManager: PHImageManager = PHImageManager()
     fileprivate var collections: [(assetCollection:PHAssetCollection, assetsFetchResult: PHFetchResult<PHAsset>)] = []
     
@@ -126,6 +127,7 @@ extension PKAlbumListController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let gridVC = PKAssetGridViewController()
+        gridVC.pickDelegate = self.pickDelegate
         gridVC.fetchResult = self.collections[indexPath.row].assetsFetchResult
         gridVC.navigationItem.title = self.collections[indexPath.row].assetCollection.localizedTitle
         self.navigationController?.pushViewController(gridVC, animated: true)

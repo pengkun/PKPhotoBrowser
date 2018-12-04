@@ -10,6 +10,7 @@ import UIKit
 
 protocol PKGridBottomViewDelegate: class  {
     func gridBottomViewDidClickPreview()
+    func gridBottomViewDoneDidClick()
 }
 
 /// grid底部工具栏
@@ -71,6 +72,7 @@ private extension PKGridBottomView {
         self.doneBtn.layer.cornerRadius = 5
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        self.doneBtn.addTarget(self, action: #selector(doneBtnDidClick), for: .touchUpInside)
         self.addSubview(self.doneBtn)
     }
     
@@ -96,6 +98,10 @@ extension PKGridBottomView {
         self.delegate?.gridBottomViewDidClickPreview()
     }
 
+    @objc func doneBtnDidClick() {
+        self.delegate?.gridBottomViewDoneDidClick()
+    }
+    
     func selectCountDidSet() {
         self.previewBtn.isEnabled = self.selectCount != 0
         self.doneBtn.isEnabled = self.selectCount != 0

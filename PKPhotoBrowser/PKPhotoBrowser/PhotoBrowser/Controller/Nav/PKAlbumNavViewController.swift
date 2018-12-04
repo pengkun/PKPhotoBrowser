@@ -1,5 +1,5 @@
 //
-//  PKNavViewController.swift
+//  PKAlbumNavViewController.swift
 //  PKPhotoBrowser
 //
 //  Created by pengkun on 2018/11/24.
@@ -7,23 +7,28 @@
 //
 
 import UIKit
+import Photos
 
-class PKNavViewController: UINavigationController {
+protocol PKAlbumNavViewControllerDelegate: class {
+    func albumController(didFinishPickingPhotos photos: [PHAsset])
+}
+
+class PKAlbumNavViewController: UINavigationController {
 
     //MARK: - ui
     fileprivate let assetGridVC = PKAssetGridViewController()
     //MARK: - property
-    /// 最多选中张数 
-    var maxSelectCount: Int = 9
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
     }
     
-    required init() {
+    required init(delegate: PKAlbumNavViewControllerDelegate) {
         let listVC = PKAlbumListController()
+        listVC.pickDelegate = delegate
         super.init(rootViewController: listVC)
         
+        self.assetGridVC.pickDelegate = delegate
         self.pushViewController(self.assetGridVC, animated: false)
     }
     

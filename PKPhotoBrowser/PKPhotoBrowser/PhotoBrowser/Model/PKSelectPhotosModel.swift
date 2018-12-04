@@ -11,4 +11,5 @@ import Photos
 
 class PKSelectPhotosModel {
     var selectAssets: [PHAsset] = []
+    
 }

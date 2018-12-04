@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 protocol PKPreviewBottomViewDelegate: class  {
-//    func 
+    func previewDoneDidClick()
 }
 
 /// 预览页底部视图
@@ -21,6 +21,7 @@ class PKPreviewBottomView: UIView {
     fileprivate let line: UIView = UIView()
     fileprivate let doneBtn: UIButton = UIButton()
     //MARK: - property
+    weak var delegate: PKPreviewBottomViewDelegate?
     fileprivate var thumbnailSize: CGSize!
     /// 选中的assets
     var selectAssetsModel: PKSelectPhotosModel? {
@@ -94,6 +95,7 @@ private extension PKPreviewBottomView {
         self.doneBtn.layer.cornerRadius = 5
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        self.doneBtn.addTarget(self, action: #selector(doneBtnDidClick), for: .touchUpInside)
         self.addSubview(self.doneBtn)
     }
     
@@ -165,6 +167,10 @@ extension PKPreviewBottomView {
             self.doneBtn.isEnabled = count != 0
             self.doneBtn.setTitle("完成(\(count))", for: .normal)
         }
+    }
+    
+    @objc func doneBtnDidClick() {
+        self.delegate?.previewDoneDidClick()
     }
 }
 
