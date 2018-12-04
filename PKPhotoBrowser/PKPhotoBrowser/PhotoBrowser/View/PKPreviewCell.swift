@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 预览页 整屏的cell
 class PKPreviewCell: UICollectionViewCell {
     
     static let identifier: String = "PKPreviewCell"
@@ -19,6 +20,7 @@ class PKPreviewCell: UICollectionViewCell {
             self.zoomView.image = photoImage
         }
     }
+    var representedAssetIdentifier: String!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

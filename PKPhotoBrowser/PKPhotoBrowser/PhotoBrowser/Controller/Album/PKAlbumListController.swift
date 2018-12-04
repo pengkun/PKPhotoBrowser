@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 
+/// 相册列表
 class PKAlbumListController: PKBaseViewController {
 
     //MARK: - ui

@@ -14,6 +14,7 @@ protocol PKPhotoCollectionCellDelegate: class  {
     func collectionCell(_ cell: PKPhotoCollectionCell, didDeselectItemAt item: Int)
 }
 
+/// 照片普布流 cell
 class PKPhotoCollectionCell: UICollectionViewCell {
     static let identifier: String = "PKPhotoCollectionCell"
     

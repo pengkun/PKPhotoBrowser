@@ -9,6 +9,11 @@
 import UIKit
 import Photos
 
+protocol PKPreviewBottomViewDelegate: class  {
+//    func 
+}
+
+/// 预览页底部视图
 class PKPreviewBottomView: UIView {
 
     //MARK: - ui
@@ -17,9 +22,18 @@ class PKPreviewBottomView: UIView {
     fileprivate let doneBtn: UIButton = UIButton()
     //MARK: - property
     fileprivate var thumbnailSize: CGSize!
-    /// 选中的asset
-    var selectAssets: [PHAsset] = []
+    /// 选中的assets
+    var selectAssetsModel: PKSelectPhotosModel? {
+        didSet {
+            self.selectModelDidSet()
+        }
+    }
+    /// 第一次进入 或者 最新添加的
+    var newAsset: PHAsset?
+    /// 固定layout的宽
     fileprivate let layoutWidth = 60
+    /// 当前选中的item
+    fileprivate var curSelectItem: Int = 0
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -96,9 +110,46 @@ private extension PKPreviewBottomView {
         
         self.doneBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.snp.bottom).offset(-10)
-            make.right.equalTo(self.snp.right).offset(-10)
+            make.right.equalTo(self.snp.right).offset(-15)
             make.height.equalTo(30)
             make.width.equalTo(70)
+        }
+    }
+}
+
+extension PKPreviewBottomView {
+    func selectModelDidSet() {
+        
+        self.photoCollectionView.reloadData()
+    }
+    
+    func insertAsset(asset: PHAsset) {
+        if let model = self.selectAssetsModel {
+            self.photoCollectionView.insertItems(at: [IndexPath(item: model.selectAssets.count-1, section: 0)])
+        }
+    }
+    
+    func deleteItem(item: Int) {
+        self.photoCollectionView.deleteItems(at: [IndexPath(item: item, section: 0)])
+//        let preCell = self.photoCollectionView.cellForItem(at: IndexPath(item: item, section: 0))
+//        preCell?.contentView.layer.borderWidth = 0
+        self.curSelectItem = 0
+    }
+    
+    func scrollToItem(asset: PHAsset) {
+        if let index = self.selectAssetsModel?.selectAssets.index(of: asset) {
+            let preCell = self.photoCollectionView.cellForItem(at: IndexPath(item: self.curSelectItem, section: 0))
+            preCell?.contentView.layer.borderWidth = 0
+            
+            self.curSelectItem = index
+            
+            let cell = self.photoCollectionView.cellForItem(at: IndexPath(item: self.curSelectItem, section: 0))
+            cell?.contentView.layer.borderColor = PKConfiguration.shared.btnSelBackgroundColor.cgColor
+            cell?.contentView.layer.borderWidth = 3
+        }
+        else {
+            let preCell = self.photoCollectionView.cellForItem(at: IndexPath(item: self.curSelectItem, section: 0))
+            preCell?.contentView.layer.borderWidth = 0
         }
     }
 }
@@ -106,20 +157,27 @@ private extension PKPreviewBottomView {
 // MARK: - UICollectionViewDataSource
 extension PKPreviewBottomView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.selectAssets.count
+        return self.selectAssetsModel?.selectAssets.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PKPhotoCollectionCell.identifier, for: indexPath) as! PKPhotoCollectionCell
-        
-        let asset = self.selectAssets[indexPath.item]
         cell.selectBtn.isHidden = true
-        cell.representedAssetIdentifier = asset.localIdentifier
-        PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
-            if cell.representedAssetIdentifier == asset.localIdentifier {
-                cell.thumbnailImage = image
+        
+        if let asset = self.selectAssetsModel?.selectAssets[indexPath.item] {
+            if self.newAsset != nil && self.newAsset?.localIdentifier == asset.localIdentifier {
+                cell.contentView.layer.borderColor = PKConfiguration.shared.btnSelBackgroundColor.cgColor
+                cell.contentView.layer.borderWidth = 3
+                self.newAsset = nil
             }
-        })
+            cell.representedAssetIdentifier = asset.localIdentifier
+            PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
+                if cell.representedAssetIdentifier == asset.localIdentifier {
+                    cell.thumbnailImage = image
+                }
+            })
+        }
+        
         return cell
     }
     

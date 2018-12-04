@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 放大缩小
 class PKPhotoZoomView: UIScrollView {
 
     //MARK: - ui

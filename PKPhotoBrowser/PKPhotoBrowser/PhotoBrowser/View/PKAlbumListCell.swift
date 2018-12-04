@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 
+/// 相册列表 cell
 class PKAlbumListCell: UITableViewCell {
     static let identifier: String = "PKAlbumListCell"
     static let cellHeight: CGFloat = 60

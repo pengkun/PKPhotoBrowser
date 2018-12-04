@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		49339774940576C7797502D3 /* Pods_PKPhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7193CA93053904497D23AF11 /* Pods_PKPhotoBrowser.framework */; };
 		7333B55A21AE8164006EF9AE /* PKPhotoZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */; };
+		7333B55F21AE8CCA006EF9AE /* PHAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B55E21AE8CCA006EF9AE /* PHAsset+Extension.swift */; };
+		7333B56121AE9E00006EF9AE /* PKSelectPhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B56021AE9E00006EF9AE /* PKSelectPhotosModel.swift */; };
+		734A4DA421B4E01A00C751F7 /* PKGridBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A4DA321B4E01A00C751F7 /* PKGridBottomView.swift */; };
 		73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */; };
 		73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9721A7ECA300BFF89F /* ViewController.swift */; };
 		73C5AC9B21A7ECA300BFF89F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C5AC9921A7ECA300BFF89F /* Main.storyboard */; };
@@ -47,6 +50,9 @@
 		18A8B1C32AD34EF81FB33D98 /* Pods-PKPhotoBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKPhotoBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-PKPhotoBrowser/Pods-PKPhotoBrowser.release.xcconfig"; sourceTree = "<group>"; };
 		7193CA93053904497D23AF11 /* Pods_PKPhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PKPhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPhotoZoomView.swift; sourceTree = "<group>"; };
+		7333B55E21AE8CCA006EF9AE /* PHAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
+		7333B56021AE9E00006EF9AE /* PKSelectPhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKSelectPhotosModel.swift; sourceTree = "<group>"; };
+		734A4DA321B4E01A00C751F7 /* PKGridBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKGridBottomView.swift; sourceTree = "<group>"; };
 		73C5AC9221A7ECA300BFF89F /* PKPhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKPhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73C5AC9721A7ECA300BFF89F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +119,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7333B55D21AE8C8A006EF9AE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7333B55E21AE8CCA006EF9AE /* PHAsset+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		73C5AC8921A7ECA300BFF89F = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +167,7 @@
 				73C5ACAC21A7EEC400BFF89F /* View */,
 				73C5ACC221A80A3E00BFF89F /* Common */,
 				73C5ACB721A7FFBA00BFF89F /* Tool */,
+				7333B55D21AE8C8A006EF9AE /* Extension */,
 				73C5ACBF21A8083E00BFF89F /* Resource */,
 			);
 			path = PhotoBrowser;
@@ -175,6 +190,7 @@
 				73C5ACBC21A8025B00BFF89F /* PKAlbumListCell.xib */,
 				73C5ACD721A9636F00BFF89F /* PKPhotoCollectionCell.swift */,
 				73C5ACD821A9636F00BFF89F /* PKPhotoCollectionCell.xib */,
+				734A4DA321B4E01A00C751F7 /* PKGridBottomView.swift */,
 				73C5ACF621ABFB9500BFF89F /* PKPreviewBottomView.swift */,
 				73C5ACF821AC0CEB00BFF89F /* PKPreviewCell.swift */,
 				7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */,
@@ -185,6 +201,7 @@
 		73C5ACAD21A7EECA00BFF89F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7333B56021AE9E00006EF9AE /* PKSelectPhotosModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -408,6 +425,8 @@
 			files = (
 				73C5ACEF21ABF4A700BFF89F /* PKPreviewController.swift in Sources */,
 				73C5ACF121ABF59B00BFF89F /* PKNavigationBarView.swift in Sources */,
+				7333B55F21AE8CCA006EF9AE /* PHAsset+Extension.swift in Sources */,
+				7333B56121AE9E00006EF9AE /* PKSelectPhotosModel.swift in Sources */,
 				73C5ACC921A8126500BFF89F /* PKImageManager.swift in Sources */,
 				73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */,
 				73C5ACD621A9064A00BFF89F /* PKAssetGridViewController.swift in Sources */,
@@ -418,6 +437,7 @@
 				73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */,
 				73C5ACF721ABFB9500BFF89F /* PKPreviewBottomView.swift in Sources */,
 				73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */,
+				734A4DA421B4E01A00C751F7 /* PKGridBottomView.swift in Sources */,
 				73C5ACB521A7FD8700BFF89F /* PKLoadingTool.swift in Sources */,
 				73C5ACF921AC0CEB00BFF89F /* PKPreviewCell.swift in Sources */,
 				73C5ACB621A7FD8700BFF89F /* PKLoadingView.swift in Sources */,

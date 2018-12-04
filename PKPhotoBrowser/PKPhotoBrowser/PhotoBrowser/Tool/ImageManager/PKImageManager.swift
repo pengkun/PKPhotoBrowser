@@ -9,7 +9,7 @@
 import Foundation
 import Photos
 
-class PKImageManager: PHImageManager {
+class PKImageManager: PHCachingImageManager {
     static let shared: PKImageManager = PKImageManager()
     
     /// 获取缩略图
@@ -28,14 +28,24 @@ class PKImageManager: PHImageManager {
         return thumbnailSize
     }
     
-    func getOriginImage(asset: PHAsset, progressHandler: PHAssetImageProgressHandler?, completion: @escaping (UIImage?) -> Void) {
-        let option = PHImageRequestOptions()
-        option.resizeMode = .none
-        option.deliveryMode = .highQualityFormat
-        option.isNetworkAccessAllowed = true
-        option.progressHandler = progressHandler
+    func getPreviewImage(asset: PHAsset, targetSize: CGSize, progressHandler: PHAssetImageProgressHandler?, completion: @escaping (UIImage?) -> Void) {
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
         
-        _ = self.requestImage(for: asset, targetSize: CGSize(), contentMode: .aspectFit, options: option) { (image, dic) in
+        _ = self.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, dic) in
+            completion(image)
+        }
+    }
+    
+    func getOriginImage(asset: PHAsset, progressHandler: PHAssetImageProgressHandler?, completion: @escaping (UIImage?) -> Void) {
+        let options = PHImageRequestOptions()
+        options.resizeMode = .none
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        options.progressHandler = progressHandler
+        
+        _ = self.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .default, options: options) { (image, dic) in
             completion(image)
         }
     }

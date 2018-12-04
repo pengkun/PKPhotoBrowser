@@ -9,15 +9,17 @@
 import UIKit
 import Photos
 
+/// 照片瀑布流
 class PKAssetGridViewController: PKBaseViewController {
 
     //MARK: - ui
     fileprivate var photoCollectionView: UICollectionView!
+    fileprivate let bottomView: PKGridBottomView = PKGridBottomView()
     //MARK: - property
     var fetchResult: PHFetchResult<PHAsset>!
     fileprivate var thumbnailSize: CGSize!
     /// 选中的asset
-    fileprivate var selectAssets: [PHAsset] = []
+    fileprivate var selectAssetsModel: PKSelectPhotosModel = PKSelectPhotosModel()
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -36,6 +38,12 @@ class PKAssetGridViewController: PKBaseViewController {
         super.viewDidLoad()
         
         self.setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.photoCollectionView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,17 +80,14 @@ private extension PKAssetGridViewController {
         self.navigationItem.leftBarButtonItem = backItem
         
         let flowLayout = UICollectionViewFlowLayout()
-        let shape: CGFloat = 5
-        let layoutWidth = (kPKScreenWidth-shape*5)/4
-        flowLayout.itemSize = CGSize(width: layoutWidth, height: layoutWidth)
+        flowLayout.itemSize = CGSize(width: configuration.gridLayoutWidth(), height: configuration.gridLayoutWidth())
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = shape
-        flowLayout.minimumInteritemSpacing = shape
-        flowLayout.sectionInset = UIEdgeInsets(top: shape, left: shape, bottom: 0, right: shape)
+        flowLayout.minimumLineSpacing = configuration.gridShape
+        flowLayout.minimumInteritemSpacing = configuration.gridShape
+        flowLayout.sectionInset = UIEdgeInsets(top: configuration.gridShape, left: configuration.gridShape, bottom: 0, right: configuration.gridShape)
         
-        let scale = UIScreen.main.scale
-        let cellSize = flowLayout.itemSize
-        self.thumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+
+        self.thumbnailSize = configuration.thumbnailSize
         
         self.photoCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         self.photoCollectionView.backgroundColor = UIColor.white
@@ -90,12 +95,20 @@ private extension PKAssetGridViewController {
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.register(UINib(nibName: "PKPhotoCollectionCell", bundle: nil), forCellWithReuseIdentifier: PKPhotoCollectionCell.identifier)
         self.view.addSubview(self.photoCollectionView)
-    
+        
+        self.bottomView.delegate = self
+        self.view.addSubview(self.bottomView)
     }
     
     func setupConstraints() {
         self.photoCollectionView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view)//.inset(UIEdgeInsets(top: kPKViewTopOffset, left: 0, bottom: 0, right: 0))
+            make.top.left.right.equalTo(self.view)
+            make.bottom.equalTo(self.bottomView.snp.top)
+        }
+        
+        self.bottomView.snp.makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.bottom.equalTo(self.view.snp.bottom)
         }
     }
     
@@ -132,7 +145,7 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
         cell.item = indexPath.item
         cell.delegate = self
         cell.representedAssetIdentifier = asset.localIdentifier
-        cell.number = self.selectAssets.index(of: asset)
+        cell.number = self.selectAssetsModel.selectAssets.index(of: asset)
         PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.thumbnailImage = image
@@ -147,32 +160,48 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
 extension PKAssetGridViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+
         let preVC = PKPreviewController()
-        preVC.selectAssets = self.selectAssets
+        preVC.fetchResult = self.fetchResult
+        preVC.selectAssetsModel = self.selectAssetsModel
+        preVC.gridSelectItem = indexPath.item
         self.navigationController?.pushViewController(preVC, animated: true)
     }
 }
 
+// MARK: - PKPhotoCollectionCellDelegate
 extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
     func collectionCell(_ cell: PKPhotoCollectionCell, didSelectItemAt item: Int) {
         let maxCount = PKConfiguration.shared.selectMaxCount
-        if self.selectAssets.count >= maxCount {
+        if self.selectAssetsModel.selectAssets.count >= maxCount {
             let alertVC = UIAlertController(title: "你最多选择\(maxCount)照片", message: nil, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return
         }
         let asset = self.fetchResult.object(at: item)
-        self.selectAssets.append(asset)
+        self.selectAssetsModel.selectAssets.append(asset)
         self.photoCollectionView.reloadData()
+        
     }
     
     func collectionCell(_ cell: PKPhotoCollectionCell, didDeselectItemAt item: Int) {
         let asset = self.fetchResult.object(at: item)
-        if let index = self.selectAssets.index(of: asset) {
-            self.selectAssets.remove(at: index)
+        if let index = self.selectAssetsModel.selectAssets.index(of: asset) {
+            self.selectAssetsModel.selectAssets.remove(at: index)
         }
         self.photoCollectionView.reloadData()
+        if self.selectAssetsModel.selectAssets.count == 0 {
+            
+        }
+    }
+}
+
+// MARK: - PKGridBottomViewDelegate
+extension PKAssetGridViewController: PKGridBottomViewDelegate {
+    func gridBottomViewDidClickPreview() {
+        let preVC = PKPreviewController()
+        preVC.selectAssetsModel = self.selectAssetsModel
+        self.navigationController?.pushViewController(preVC, animated: true)
     }
 }
