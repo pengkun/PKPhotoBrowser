@@ -14,6 +14,8 @@ class PKPreviewCell: UICollectionViewCell {
     static let identifier: String = "PKPreviewCell"
     
     fileprivate let zoomView: PKPhotoZoomView = PKPhotoZoomView()
+    typealias OneTapClick = () -> Void
+    var oneTapClick: OneTapClick?
     // 图片设置
     var photoImage: UIImage? {
         didSet {
@@ -26,10 +28,17 @@ class PKPreviewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.zoomView.frame = self.bounds
+        self.zoomView.tapDelegate = self
         self.addSubview(self.zoomView)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension PKPreviewCell: PKPhotoZoomViewDelegate {
+    func zoomViewOneTapClick() {
+        self.oneTapClick?()
     }
 }

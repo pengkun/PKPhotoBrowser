@@ -14,7 +14,7 @@ class PKConfiguration {
     private init() { }
     
     /// 最多选中数量
-    let selectMaxCount: Int = 9
+    let selectMaxCount: Int = 4
     /// 已经选中的数量
     var selectedCount: Int = 0
     

@@ -20,6 +20,8 @@ class PKPreviewController: UIViewController {
     //MARK: - property
     /// 选中的照片集合
     var selectAssetsModel: PKSelectPhotosModel?
+    /// 只预览选中的照片时，只操作selectAssetsModel里的对象，selectAssets只用来显示
+    fileprivate var selectAssets: [PHAsset] = []
     /// 所有照片集合
     var fetchResult: PHFetchResult<PHAsset>?
     /// 上一级选中的item(根据fetchResult不为空)
@@ -144,6 +146,7 @@ private extension PKPreviewController {
             }
         }
         else if self.selectAssetsModel != nil {
+            self.selectAssets = self.selectAssetsModel!.selectAssets
             self.bottomView.newAsset = self.selectAssetsModel!.selectAssets[0]
             self.setRightBtnTitle(asset: self.selectAssetsModel!.selectAssets[0])
         }
@@ -182,6 +185,36 @@ private extension PKPreviewController {
             self.rightBtn.isSelected = false
         }
     }
+    
+    func oneTapClick() {
+        if self.navigationBar.isHidden {
+            self.navigationBar.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.navigationBar.snp.updateConstraints { (update) in
+                    update.top.equalTo(self.view.snp.top)
+                }
+                self.bottomView.snp.updateConstraints { (update) in
+                    update.bottom.equalTo(self.view.snp.bottom)
+                }
+                self.view.layoutSubviews()
+            }) { (_) in
+                
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.navigationBar.snp.updateConstraints { (update) in
+                    update.top.equalTo(self.view.snp.top).offset(-self.navigationBar.intrinsicContentSize.height)
+                }
+                self.bottomView.snp.updateConstraints { (update) in
+                    update.bottom.equalTo(self.view.snp.bottom).offset(self.bottomView.intrinsicContentSize.height)
+                }
+                self.view.layoutSubviews()
+            }) { (_) in
+                self.navigationBar.isHidden = true
+            }
+        }
+    }
 }
 
 extension PKPreviewController {
@@ -191,7 +224,7 @@ extension PKPreviewController {
             asset = self.fetchResult![index]
         }
         else {
-            asset = self.selectAssetsModel?.selectAssets[index]
+            asset = self.selectAssets[index]
         }
         return asset
     }
@@ -201,7 +234,7 @@ extension PKPreviewController {
 extension PKPreviewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.fetchResult == nil {
-            return self.selectAssetsModel?.selectAssets.count ?? 0
+            return self.selectAssets.count
         }
         return self.fetchResult!.count
     }
@@ -226,6 +259,11 @@ extension PKPreviewController: UICollectionViewDataSource {
                 cell.photoImage = image
             }
         }
+        
+        cell.oneTapClick = {[weak self] in
+            self?.oneTapClick()
+        }
+        
         return cell
     }
     

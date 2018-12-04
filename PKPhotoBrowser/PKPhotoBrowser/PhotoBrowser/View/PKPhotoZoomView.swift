@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PKPhotoZoomViewDelegate: class {
+    func zoomViewOneTapClick()
+}
+
 /// 放大缩小
 class PKPhotoZoomView: UIScrollView {
 
@@ -19,6 +23,7 @@ class PKPhotoZoomView: UIScrollView {
             self.imageDidSet()
         }
     }
+    weak var tapDelegate: PKPhotoZoomViewDelegate?
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -94,7 +99,7 @@ extension PKPhotoZoomView {
     }
     
     @objc func oneTapClick() {
-        
+        self.tapDelegate?.zoomViewOneTapClick()
     }
 }
 
@@ -105,13 +110,13 @@ extension PKPhotoZoomView: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        debugPrint("content size = \(scrollView.contentSize)")
+//        debugPrint("content size = \(scrollView.contentSize)")
         self.imageView.center.y = self.bounds.height > self.contentSize.height ? self.bounds.height/2 : self.contentSize.height/2
         self.imageView.center.x = self.bounds.width > self.contentSize.width ? self.bounds.width/2 : self.contentSize.width/2
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        debugPrint("scrollViewDidEndZooming scale = \(scale)")
+//        debugPrint("scrollViewDidEndZooming scale = \(scale)")
         if scale <= scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         }

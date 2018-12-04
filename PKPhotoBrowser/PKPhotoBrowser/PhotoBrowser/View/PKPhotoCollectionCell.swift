@@ -20,6 +20,7 @@ class PKPhotoCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var selectBtn: UIButton!
+    @IBOutlet weak var blurEffectView: UIView!
     
     var representedAssetIdentifier: String!
     var item: Int = 0
@@ -38,6 +39,12 @@ class PKPhotoCollectionCell: UICollectionViewCell {
             else {
                 self.selectBtn.isSelected = false
             }
+        }
+    }
+    
+    var isBlurEffectHidden: Bool = false {
+        didSet {
+            self.blurEffectView.isHidden = isBlurEffectHidden
         }
     }
     

@@ -146,6 +146,14 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
         cell.delegate = self
         cell.representedAssetIdentifier = asset.localIdentifier
         cell.number = self.selectAssetsModel.selectAssets.index(of: asset)
+        if self.selectAssetsModel.selectAssets.count >= PKConfiguration.shared.selectMaxCount {
+            if cell.number == nil {
+                cell.isBlurEffectHidden = false
+            }
+            else {
+                cell.isBlurEffectHidden = true
+            }
+        }
         PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.thumbnailImage = image
@@ -174,7 +182,7 @@ extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
     func collectionCell(_ cell: PKPhotoCollectionCell, didSelectItemAt item: Int) {
         let maxCount = PKConfiguration.shared.selectMaxCount
         if self.selectAssetsModel.selectAssets.count >= maxCount {
-            let alertVC = UIAlertController(title: "你最多选择\(maxCount)照片", message: nil, preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "你最多可以选择\(maxCount)照片", message: nil, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return
