@@ -20,6 +20,7 @@ class PKAssetGridViewController: PKBaseViewController {
     fileprivate var thumbnailSize: CGSize!
     /// 选中的asset
     fileprivate var selectAssetsModel: PKSelectPhotosModel = PKSelectPhotosModel()
+    private var firstLoad: Bool = true
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -44,6 +45,15 @@ class PKAssetGridViewController: PKBaseViewController {
         super.viewWillAppear(animated)
         
         self.photoCollectionView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if self.firstLoad == true {
+            self.photoCollectionView.scrollToItem(at: IndexPath(item: self.fetchResult.count-1, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: false)
+            self.firstLoad = false
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -154,6 +164,9 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
                 cell.isBlurEffectHidden = true
             }
         }
+        else {
+            cell.isBlurEffectHidden = true
+        }
         PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.thumbnailImage = image
@@ -182,7 +195,7 @@ extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
     func collectionCell(_ cell: PKPhotoCollectionCell, didSelectItemAt item: Int) {
         let maxCount = PKConfiguration.shared.selectMaxCount
         if self.selectAssetsModel.selectAssets.count >= maxCount {
-            let alertVC = UIAlertController(title: "你最多可以选择\(maxCount)照片", message: nil, preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "你最多可以选择\(maxCount)张照片", message: nil, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return

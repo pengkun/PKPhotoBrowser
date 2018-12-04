@@ -119,7 +119,9 @@ private extension PKPreviewBottomView {
 
 extension PKPreviewBottomView {
     func selectModelDidSet() {
-        
+        if let new = self.newAsset, let index = self.selectAssetsModel?.selectAssets.index(of: new) {
+            self.curSelectItem = index
+        }
         self.photoCollectionView.reloadData()
     }
     
