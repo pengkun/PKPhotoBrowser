@@ -44,6 +44,7 @@ class PKAssetGridViewController: PKBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.bottomView.selectCount = self.selectAssetsModel.selectAssets.count
         self.photoCollectionView.reloadData()
     }
     
@@ -113,7 +114,7 @@ private extension PKAssetGridViewController {
     func setupConstraints() {
         self.photoCollectionView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(self.view)
-            make.bottom.equalTo(self.bottomView.snp.top)
+            make.bottom.equalTo(self.bottomView.snp.top).offset(-5)
         }
         
         self.bottomView.snp.makeConstraints { (make) in
@@ -204,6 +205,7 @@ extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
         self.selectAssetsModel.selectAssets.append(asset)
         self.photoCollectionView.reloadData()
         
+        self.bottomView.selectCount = self.selectAssetsModel.selectAssets.count
     }
     
     func collectionCell(_ cell: PKPhotoCollectionCell, didDeselectItemAt item: Int) {
@@ -212,9 +214,7 @@ extension PKAssetGridViewController: PKPhotoCollectionCellDelegate {
             self.selectAssetsModel.selectAssets.remove(at: index)
         }
         self.photoCollectionView.reloadData()
-        if self.selectAssetsModel.selectAssets.count == 0 {
-            
-        }
+        self.bottomView.selectCount = self.selectAssetsModel.selectAssets.count
     }
 }
 

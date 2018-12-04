@@ -20,6 +20,11 @@ class PKGridBottomView: UIView {
     fileprivate let doneBtn: UIButton = UIButton()
     //MARK: - property
     weak var delegate: PKGridBottomViewDelegate?
+    var selectCount: Int = 0 {
+        didSet {
+            self.selectCountDidSet()
+        }
+    }
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -35,7 +40,7 @@ class PKGridBottomView: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: kPKScreenWidth, height: 60)
+        return CGSize(width: kPKScreenWidth, height: 50)
     }
 }
 
@@ -51,14 +56,18 @@ private extension PKGridBottomView {
         self.backgroundColor = configuration.navBarBackgroundColor
         
         self.previewBtn.setTitleColor(UIColor.white, for: .normal)
+        self.previewBtn.setTitleColor(UIColor.white.withAlphaComponent(0.6), for: .disabled)
         self.previewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         self.previewBtn.setTitle("预览", for: .normal)
         self.previewBtn.addTarget(self, action: #selector(previewBtnDidClick), for: .touchUpInside)
         self.previewBtn.contentHorizontalAlignment = .left
         self.addSubview(self.previewBtn)
         
-        self.doneBtn.backgroundColor = configuration.btnSelBackgroundColor
+        self.doneBtn.setBackgroundImage(configuration.btnSelBackgroundColor.pkext_image, for: .normal)
+        self.doneBtn.setBackgroundImage(configuration.btnSelBackgroundColor.withAlphaComponent(0.6).pkext_image, for: .disabled)
         self.doneBtn.setTitleColor(UIColor.white, for: .normal)
+        self.doneBtn.setTitleColor(UIColor.white.withAlphaComponent(0.6), for: .disabled)
+        self.doneBtn.setTitle("完成", for: .disabled)
         self.doneBtn.layer.cornerRadius = 5
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -85,5 +94,12 @@ private extension PKGridBottomView {
 extension PKGridBottomView {
     @objc func previewBtnDidClick() {
         self.delegate?.gridBottomViewDidClickPreview()
+    }
+
+    func selectCountDidSet() {
+        self.previewBtn.isEnabled = self.selectCount != 0
+        self.doneBtn.isEnabled = self.selectCount != 0
+        
+        self.doneBtn.setTitle("完成(\(self.selectCount))", for: .normal)
     }
 }

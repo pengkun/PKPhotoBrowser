@@ -31,7 +31,7 @@ class PKPreviewBottomView: UIView {
     /// 第一次进入 或者 最新添加的
     var newAsset: PHAsset?
     /// 固定layout的宽
-    fileprivate let layoutWidth = 60
+    fileprivate let layoutWidth = 55
     /// 当前选中的item
     fileprivate var curSelectItem: Int = 0
     
@@ -49,7 +49,7 @@ class PKPreviewBottomView: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: kPKScreenWidth, height: 140)
+        return CGSize(width: kPKScreenWidth, height: 125)
     }
 }
 
@@ -77,7 +77,7 @@ private extension PKPreviewBottomView {
         self.thumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
         
         self.photoCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
-        self.photoCollectionView.backgroundColor = configuration.navBarBackgroundColor
+        self.photoCollectionView.backgroundColor = UIColor.clear
         self.photoCollectionView.delegate = self
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.register(UINib(nibName: "PKPhotoCollectionCell", bundle: nil), forCellWithReuseIdentifier: PKPhotoCollectionCell.identifier)
@@ -86,8 +86,11 @@ private extension PKPreviewBottomView {
         self.line.backgroundColor = configuration.lineColor
         self.addSubview(self.line)
         
-        self.doneBtn.backgroundColor = configuration.btnSelBackgroundColor
+        self.doneBtn.setBackgroundImage(configuration.btnSelBackgroundColor.pkext_image, for: .normal)
+        self.doneBtn.setBackgroundImage(configuration.btnSelBackgroundColor.withAlphaComponent(0.6).pkext_image, for: .disabled)
         self.doneBtn.setTitleColor(UIColor.white, for: .normal)
+        self.doneBtn.setTitleColor(UIColor.white.withAlphaComponent(0.6), for: .disabled)
+        self.doneBtn.setTitle("完成", for: .disabled)
         self.doneBtn.layer.cornerRadius = 5
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -122,19 +125,21 @@ extension PKPreviewBottomView {
         if let new = self.newAsset, let index = self.selectAssetsModel?.selectAssets.index(of: new) {
             self.curSelectItem = index
         }
+        
+        self.updateDoneStatus()
         self.photoCollectionView.reloadData()
     }
     
     func insertAsset(asset: PHAsset) {
         if let model = self.selectAssetsModel {
+            self.updateDoneStatus()
             self.photoCollectionView.insertItems(at: [IndexPath(item: model.selectAssets.count-1, section: 0)])
         }
     }
     
     func deleteItem(item: Int) {
+        self.updateDoneStatus()
         self.photoCollectionView.deleteItems(at: [IndexPath(item: item, section: 0)])
-//        let preCell = self.photoCollectionView.cellForItem(at: IndexPath(item: item, section: 0))
-//        preCell?.contentView.layer.borderWidth = 0
         self.curSelectItem = 0
     }
     
@@ -152,6 +157,13 @@ extension PKPreviewBottomView {
         else {
             let preCell = self.photoCollectionView.cellForItem(at: IndexPath(item: self.curSelectItem, section: 0))
             preCell?.contentView.layer.borderWidth = 0
+        }
+    }
+    
+    func updateDoneStatus() {
+        if let count = self.selectAssetsModel?.selectAssets.count {
+            self.doneBtn.isEnabled = count != 0
+            self.doneBtn.setTitle("完成(\(count))", for: .normal)
         }
     }
 }

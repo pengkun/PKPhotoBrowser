@@ -20,7 +20,7 @@ class PKConfiguration {
     
 //MARK: - NavBar
     /// navbar 背景色
-    let navBarBackgroundColor: UIColor = UIColor.pkext_rgba(49, 49, 49)
+    let navBarBackgroundColor: UIColor = UIColor.pkext_rgba(49, 49, 49, 0.95)
     /// navbar 字体
     let navTitleFont: UIFont = UIFont.systemFont(ofSize: 17)
     /// navbar 字体颜色
