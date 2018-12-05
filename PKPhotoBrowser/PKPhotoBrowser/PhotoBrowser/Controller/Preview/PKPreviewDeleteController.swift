@@ -17,17 +17,18 @@ class PKPreviewDeleteController: PKBaseViewController {
     fileprivate let flowLayout = UICollectionViewFlowLayout()
     //MARK: - property
     /// 选中的照片集合
-    var images: [UIImage] = []
+    var selectModel: PKSelectPhotosModel!
     /// 上一级选中的item
     var gridSelectItem: Int?
+    fileprivate var curItem: Int = 0
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+    required init(model: PKSelectPhotosModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.selectModel = model
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,11 +101,16 @@ private extension PKPreviewDeleteController {
         }
         self.view.addSubview(self.navigationBar)
         
-        let configuration = PKConfiguration.shared
-        self.rightBtn.bounds.size = configuration.previewRightBarItemSize
+        self.rightBtn.bounds.size = CGSize(width: 60, height: 20)
+        self.rightBtn.imageView?.contentMode = .scaleAspectFit
+        self.rightBtn.contentHorizontalAlignment = .right
         self.rightBtn.setImage(UIImage(named: "garbage"), for: .normal)
         self.rightBtn.addTarget(self, action: #selector(rightBtnDidClick), for: .touchUpInside)
         self.navigationBar.rightItemView = self.rightBtn
+        
+        if self.selectModel.selectPhotos.count > 0, let item = self.gridSelectItem {
+            self.navigationBar.title = "\(item+1)/\(self.selectModel.selectPhotos.count)"
+        }
         
     }
     
@@ -122,7 +128,16 @@ private extension PKPreviewDeleteController {
 // MARK: - 按钮点击
 private extension PKPreviewDeleteController {
     @objc func rightBtnDidClick(sender: UIButton) {
-        
+        let alertVC = UIAlertController(title: "要删除这张照片吗？", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "删除", style: .destructive) { (_) in
+            self.selectModel.selectPhotos.remove(at: self.curItem)
+            self.navigationBar.title = "\(self.curItem+1)/\(self.selectModel.selectPhotos.count)"
+            self.photoCollectionView.deleteItems(at: [IndexPath(item: self.curItem, section: 0)])
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alertVC.addAction(deleteAction)
+        alertVC.addAction(cancelAction)
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     func oneTapClick() {
@@ -153,13 +168,13 @@ private extension PKPreviewDeleteController {
 // MARK: - UICollectionViewDataSource
 extension PKPreviewDeleteController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.images.count
+        return self.selectModel.selectPhotos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PKPreviewCell.identifier, for: indexPath) as! PKPreviewCell
        
-        cell.photoImage = self.images[indexPath.item]
+        cell.photoImage = self.selectModel.selectPhotos[indexPath.item]
         
         cell.oneTapClick = {[weak self] in
             self?.oneTapClick()
@@ -172,5 +187,10 @@ extension PKPreviewDeleteController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension PKPreviewDeleteController: UICollectionViewDelegate {
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.x
+        let page = Int(x / kPKScreenWidth)
+        self.curItem = page
+        self.navigationBar.title = "\(page+1)/\(self.selectModel.selectPhotos.count)"
+    }
 }

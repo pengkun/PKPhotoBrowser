@@ -12,12 +12,14 @@ import Photos
 class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
 
     let addGridView: PKAddPhotoGridView = PKAddPhotoGridView()
+    let selectModol: PKSelectPhotosModel = PKSelectPhotosModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         
+        self.addGridView.selectModel = self.selectModol
         self.addGridView.delegate = self
         self.view.addSubview(self.addGridView)
         
@@ -29,6 +31,12 @@ class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.addGridView.refreshImages()
+    }
+    
     @IBAction func albumDidClick(_ sender: Any) {
         let nav = PKAlbumNavViewController(delegate: self)
         self.navigationController?.present(nav, animated: true , completion: nil)
@@ -36,7 +44,8 @@ class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
     
     func albumController(didFinishPickingPhotos photos: [UIImage]) {
         debugPrint("photos = \(photos.count)")
-        self.addGridView.addImages(imgs: photos)
+        self.selectModol.selectPhotos.append(contentsOf: photos)
+        self.addGridView.refreshImages()
     }
 }
 
@@ -46,10 +55,9 @@ extension ViewController: PKAddPhotoGridViewDelegate {
         self.navigationController?.present(nav, animated: true , completion: nil)
     }
     
-    func addGridView(didSelect item: Int, images: [UIImage]) {
-        let previewVC = PKPreviewDeleteController()
+    func addGridView(didSelect item: Int) {
+        let previewVC = PKPreviewDeleteController(model: self.selectModol)
         previewVC.gridSelectItem = item
-        previewVC.images = images
         self.navigationController?.pushViewController(previewVC, animated: true)
     }
 }

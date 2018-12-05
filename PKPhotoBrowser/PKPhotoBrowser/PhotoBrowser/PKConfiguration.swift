@@ -22,7 +22,7 @@ class PKConfiguration {
     /// navbar 背景色
     let navBarBackgroundColor: UIColor = UIColor.pkext_rgba(49, 49, 49, 0.95)
     /// navbar 字体
-    let navTitleFont: UIFont = UIFont.systemFont(ofSize: 17)
+    let navTitleFont: UIFont = UIFont.systemFont(ofSize: 19)
     /// navbar 字体颜色
     let navTitleColor: UIColor = UIColor.white
     /// navbar 返回按钮图片
