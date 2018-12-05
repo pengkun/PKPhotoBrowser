@@ -16,7 +16,6 @@ class PKAssetGridViewController: PKBaseViewController {
     fileprivate var photoCollectionView: UICollectionView!
     fileprivate let bottomView: PKGridBottomView = PKGridBottomView()
     //MARK: - property
-    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     var fetchResult: PHFetchResult<PHAsset>!
     fileprivate var thumbnailSize: CGSize!
     /// 选中的asset
@@ -172,6 +171,7 @@ extension PKAssetGridViewController: UICollectionViewDataSource {
         PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.thumbnailImage = image
+                asset.editedImage = image
             }
         })
         return cell
@@ -230,7 +230,6 @@ extension PKAssetGridViewController: PKGridBottomViewDelegate {
     }
     
     func gridBottomViewDoneDidClick() {
-        self.pickDelegate?.albumController(didFinishPickingPhotos: self.selectAssetsModel.selectAssets)
-        self.dismiss(animated: true , completion: nil)
+        self.photosHandler(assets: self.selectAssetsModel.selectAssets)
     }
 }

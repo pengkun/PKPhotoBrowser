@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PKPreviewController: UIViewController {
+class PKPreviewController: PKBaseViewController {
 
     //MARK: - ui
     fileprivate let navigationBar: PKNavigationBarView = PKNavigationBarView()
@@ -18,7 +18,6 @@ class PKPreviewController: UIViewController {
     fileprivate let rightBtn: UIButton = UIButton()
     fileprivate let flowLayout = UICollectionViewFlowLayout()
     //MARK: - property
-    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     /// 选中的照片集合
     var selectAssetsModel: PKSelectPhotosModel?
     /// 只预览选中的照片时，只操作selectAssetsModel里的对象，selectAssets只用来显示
@@ -34,7 +33,7 @@ class PKPreviewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.hidesBottomBarWhenPushed = false
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -254,20 +253,32 @@ extension PKPreviewController: UICollectionViewDataSource {
         let asset = self.getAsset(index: indexPath.item)
         
         cell.representedAssetIdentifier = asset.localIdentifier
-        // 先从缓存里加载缩略图
-        PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: PKConfiguration.shared.thumbnailSize, completion: { (image) in
-            if cell.representedAssetIdentifier == asset.localIdentifier {
-                cell.photoImage = image
-            }
-        })
+        if asset.editedImage == nil {
+            // 先从缓存里加载缩略图
+            PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: PKConfiguration.shared.thumbnailSize, completion: { (image) in
+                if cell.representedAssetIdentifier == asset.localIdentifier {
+                    cell.photoImage = image
+                }
+            })
+        }
+        else {
+            cell.photoImage = asset.editedImage
+        }
         
-        let scale = UIScreen.main.scale
-        // 再获取预览图
-        PKImageManager.shared.getPreviewImage(asset: asset, targetSize: CGSize(width: kPKScreenWidth*scale, height: kPKScreenHeight*scale), progressHandler: nil) { (image) in
-            if cell.representedAssetIdentifier == asset.localIdentifier {
-                cell.photoImage = image
+        if asset.originImage == nil {
+            let scale = UIScreen.main.scale
+            // 再获取预览图
+            PKImageManager.shared.getPreviewImage(asset: asset, targetSize: CGSize(width: kPKScreenWidth*scale, height: kPKScreenHeight*scale), progressHandler: nil) { (image) in
+                if cell.representedAssetIdentifier == asset.localIdentifier {
+                    cell.photoImage = image
+                    asset.originImage = image
+                }
             }
         }
+        else {
+            cell.photoImage = asset.originImage
+        }
+        
         
         cell.oneTapClick = {[weak self] in
             self?.oneTapClick()
@@ -296,7 +307,6 @@ extension PKPreviewController: UICollectionViewDelegate {
 
 extension PKPreviewController: PKPreviewBottomViewDelegate {
     func previewDoneDidClick() {
-        self.pickDelegate?.albumController(didFinishPickingPhotos: self.selectAssetsModel?.selectAssets ?? [])
-        self.dismiss(animated: true , completion: nil)
+        self.photosHandler(assets: self.selectAssetsModel?.selectAssets ?? [])
     }
 }

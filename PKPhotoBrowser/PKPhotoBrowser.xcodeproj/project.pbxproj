@@ -11,13 +11,19 @@
 		7333B55A21AE8164006EF9AE /* PKPhotoZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */; };
 		7333B56121AE9E00006EF9AE /* PKSelectPhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333B56021AE9E00006EF9AE /* PKSelectPhotosModel.swift */; };
 		734A4DA421B4E01A00C751F7 /* PKGridBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A4DA321B4E01A00C751F7 /* PKGridBottomView.swift */; };
+		735720BD21B76FE700DEFE46 /* PHAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735720BC21B76FE700DEFE46 /* PHAsset+Extension.swift */; };
+		735720BF21B7775800DEFE46 /* PKAddPhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735720BE21B7775800DEFE46 /* PKAddPhotoGridView.swift */; };
+		735720C321B787BD00DEFE46 /* PKAddPhotoGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735720C121B787BD00DEFE46 /* PKAddPhotoGridCell.swift */; };
+		735720C421B787BD00DEFE46 /* PKAddPhotoGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 735720C221B787BD00DEFE46 /* PKAddPhotoGridCell.xib */; };
+		735720C821B7A87E00DEFE46 /* PKPreviewDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735720C721B7A87E00DEFE46 /* PKPreviewDeleteController.swift */; };
+		735720CB21B7AE1800DEFE46 /* garbage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 735720C921B7AE1800DEFE46 /* garbage@3x.png */; };
+		735720CC21B7AE1800DEFE46 /* garbage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 735720CA21B7AE1800DEFE46 /* garbage@2x.png */; };
 		73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */; };
 		73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5AC9721A7ECA300BFF89F /* ViewController.swift */; };
 		73C5AC9B21A7ECA300BFF89F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C5AC9921A7ECA300BFF89F /* Main.storyboard */; };
 		73C5ACA021A7ECA400BFF89F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C5AC9F21A7ECA400BFF89F /* Assets.xcassets */; };
 		73C5ACA321A7ECA400BFF89F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACA121A7ECA400BFF89F /* LaunchScreen.storyboard */; };
 		73C5ACB121A7FA6B00BFF89F /* PKAlbumListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACB021A7FA6B00BFF89F /* PKAlbumListController.swift */; };
-		73C5ACB521A7FD8700BFF89F /* PKLoadingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACB321A7FD8700BFF89F /* PKLoadingTool.swift */; };
 		73C5ACB621A7FD8700BFF89F /* PKLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACB421A7FD8700BFF89F /* PKLoadingView.swift */; };
 		73C5ACBA21A7FFDD00BFF89F /* PKAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACB921A7FFDD00BFF89F /* PKAsync.swift */; };
 		73C5ACBD21A8025C00BFF89F /* PKAlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACBB21A8025B00BFF89F /* PKAlbumListCell.swift */; };
@@ -31,8 +37,6 @@
 		73C5ACDA21A9636F00BFF89F /* PKPhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACD821A9636F00BFF89F /* PKPhotoCollectionCell.xib */; };
 		73C5ACDC21A9646A00BFF89F /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACDB21A9646900BFF89F /* add@2x.png */; };
 		73C5ACDE21A9646F00BFF89F /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACDD21A9646F00BFF89F /* add@3x.png */; };
-		73C5ACE121A9648F00BFF89F /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACDF21A9648F00BFF89F /* circle@2x.png */; };
-		73C5ACE221A9648F00BFF89F /* circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACE021A9648F00BFF89F /* circle@3x.png */; };
 		73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C5ACE821ABE78900BFF89F /* PKConfiguration.swift */; };
 		73C5ACEC21ABE99B00BFF89F /* btn_unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACEA21ABE99B00BFF89F /* btn_unselected@3x.png */; };
 		73C5ACED21ABE99B00BFF89F /* btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C5ACEB21ABE99B00BFF89F /* btn_unselected@2x.png */; };
@@ -51,6 +55,13 @@
 		7333B55921AE8164006EF9AE /* PKPhotoZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPhotoZoomView.swift; sourceTree = "<group>"; };
 		7333B56021AE9E00006EF9AE /* PKSelectPhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKSelectPhotosModel.swift; sourceTree = "<group>"; };
 		734A4DA321B4E01A00C751F7 /* PKGridBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKGridBottomView.swift; sourceTree = "<group>"; };
+		735720BC21B76FE700DEFE46 /* PHAsset+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
+		735720BE21B7775800DEFE46 /* PKAddPhotoGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAddPhotoGridView.swift; sourceTree = "<group>"; };
+		735720C121B787BD00DEFE46 /* PKAddPhotoGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAddPhotoGridCell.swift; sourceTree = "<group>"; };
+		735720C221B787BD00DEFE46 /* PKAddPhotoGridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKAddPhotoGridCell.xib; sourceTree = "<group>"; };
+		735720C721B7A87E00DEFE46 /* PKPreviewDeleteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKPreviewDeleteController.swift; sourceTree = "<group>"; };
+		735720C921B7AE1800DEFE46 /* garbage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garbage@3x.png"; sourceTree = "<group>"; };
+		735720CA21B7AE1800DEFE46 /* garbage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garbage@2x.png"; sourceTree = "<group>"; };
 		73C5AC9221A7ECA300BFF89F /* PKPhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKPhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73C5AC9721A7ECA300BFF89F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,7 +70,6 @@
 		73C5ACA221A7ECA400BFF89F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73C5ACA421A7ECA400BFF89F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73C5ACB021A7FA6B00BFF89F /* PKAlbumListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlbumListController.swift; sourceTree = "<group>"; };
-		73C5ACB321A7FD8700BFF89F /* PKLoadingTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKLoadingTool.swift; sourceTree = "<group>"; };
 		73C5ACB421A7FD8700BFF89F /* PKLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKLoadingView.swift; sourceTree = "<group>"; };
 		73C5ACB921A7FFDD00BFF89F /* PKAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKAsync.swift; sourceTree = "<group>"; };
 		73C5ACBB21A8025B00BFF89F /* PKAlbumListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKAlbumListCell.swift; sourceTree = "<group>"; };
@@ -73,8 +83,6 @@
 		73C5ACD821A9636F00BFF89F /* PKPhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKPhotoCollectionCell.xib; sourceTree = "<group>"; };
 		73C5ACDB21A9646900BFF89F /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		73C5ACDD21A9646F00BFF89F /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
-		73C5ACDF21A9648F00BFF89F /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
-		73C5ACE021A9648F00BFF89F /* circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@3x.png"; sourceTree = "<group>"; };
 		73C5ACE321ABB1F700BFF89F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		73C5ACE421ABB1F700BFF89F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		73C5ACE821ABE78900BFF89F /* PKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PKConfiguration.swift; path = PKPhotoBrowser/PhotoBrowser/PKConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -117,6 +125,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		735720BB21B76FDE00DEFE46 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				735720BC21B76FE700DEFE46 /* PHAsset+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		735720C021B7878F00DEFE46 /* AddPhotoGridView */ = {
+			isa = PBXGroup;
+			children = (
+				735720BE21B7775800DEFE46 /* PKAddPhotoGridView.swift */,
+				735720C121B787BD00DEFE46 /* PKAddPhotoGridCell.swift */,
+				735720C221B787BD00DEFE46 /* PKAddPhotoGridCell.xib */,
+				735720C621B7899300DEFE46 /* Resource */,
+			);
+			path = AddPhotoGridView;
+			sourceTree = "<group>";
+		};
+		735720C621B7899300DEFE46 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				735720CA21B7AE1800DEFE46 /* garbage@2x.png */,
+				735720C921B7AE1800DEFE46 /* garbage@3x.png */,
+				73C5ACDB21A9646900BFF89F /* add@2x.png */,
+				73C5ACDD21A9646F00BFF89F /* add@3x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		73C5AC8921A7ECA300BFF89F = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +183,7 @@
 				73C5AC9921A7ECA300BFF89F /* Main.storyboard */,
 				73C5ACA121A7ECA400BFF89F /* LaunchScreen.storyboard */,
 				73C5ACA421A7ECA400BFF89F /* Info.plist */,
+				735720C021B7878F00DEFE46 /* AddPhotoGridView */,
 			);
 			path = PKPhotoBrowser;
 			sourceTree = "<group>";
@@ -157,6 +196,7 @@
 				73C5ACAC21A7EEC400BFF89F /* View */,
 				73C5ACC221A80A3E00BFF89F /* Common */,
 				73C5ACB721A7FFBA00BFF89F /* Tool */,
+				735720BB21B76FDE00DEFE46 /* Extension */,
 				73C5ACBF21A8083E00BFF89F /* Resource */,
 			);
 			path = PhotoBrowser;
@@ -198,7 +238,6 @@
 		73C5ACB221A7FD8700BFF89F /* LoadingHUD */ = {
 			isa = PBXGroup;
 			children = (
-				73C5ACB321A7FD8700BFF89F /* PKLoadingTool.swift */,
 				73C5ACB421A7FD8700BFF89F /* PKLoadingView.swift */,
 			);
 			path = LoadingHUD;
@@ -229,10 +268,6 @@
 				73C5ACF221ABF82D00BFF89F /* back@3x.png */,
 				73C5ACEB21ABE99B00BFF89F /* btn_unselected@2x.png */,
 				73C5ACEA21ABE99B00BFF89F /* btn_unselected@3x.png */,
-				73C5ACDB21A9646900BFF89F /* add@2x.png */,
-				73C5ACDD21A9646F00BFF89F /* add@3x.png */,
-				73C5ACDF21A9648F00BFF89F /* circle@2x.png */,
-				73C5ACE021A9648F00BFF89F /* circle@3x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -276,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				73C5ACEE21ABF4A700BFF89F /* PKPreviewController.swift */,
+				735720C721B7A87E00DEFE46 /* PKPreviewDeleteController.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -351,18 +387,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				73C5ACBE21A8025C00BFF89F /* PKAlbumListCell.xib in Resources */,
+				735720C421B787BD00DEFE46 /* PKAddPhotoGridCell.xib in Resources */,
 				73C5ACDE21A9646F00BFF89F /* add@3x.png in Resources */,
 				73C5ACF421ABF82D00BFF89F /* back@3x.png in Resources */,
 				73C5ACEC21ABE99B00BFF89F /* btn_unselected@3x.png in Resources */,
 				73C5ACDA21A9636F00BFF89F /* PKPhotoCollectionCell.xib in Resources */,
 				73C5ACDC21A9646A00BFF89F /* add@2x.png in Resources */,
-				73C5ACE221A9648F00BFF89F /* circle@3x.png in Resources */,
 				73C5ACED21ABE99B00BFF89F /* btn_unselected@2x.png in Resources */,
+				735720CB21B7AE1800DEFE46 /* garbage@3x.png in Resources */,
 				73C5ACF521ABF82D00BFF89F /* back@2x.png in Resources */,
+				735720CC21B7AE1800DEFE46 /* garbage@2x.png in Resources */,
 				73C5ACA321A7ECA400BFF89F /* LaunchScreen.storyboard in Resources */,
 				73C5ACA021A7ECA400BFF89F /* Assets.xcassets in Resources */,
 				73C5AC9B21A7ECA300BFF89F /* Main.storyboard in Resources */,
-				73C5ACE121A9648F00BFF89F /* circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,17 +455,20 @@
 				73C5ACC921A8126500BFF89F /* PKImageManager.swift in Sources */,
 				73C5AC9821A7ECA300BFF89F /* ViewController.swift in Sources */,
 				73C5ACD621A9064A00BFF89F /* PKAssetGridViewController.swift in Sources */,
+				735720C821B7A87E00DEFE46 /* PKPreviewDeleteController.swift in Sources */,
 				73C5ACD221A903CD00BFF89F /* PKBaseViewController.swift in Sources */,
 				73C5ACB121A7FA6B00BFF89F /* PKAlbumListController.swift in Sources */,
+				735720BD21B76FE700DEFE46 /* PHAsset+Extension.swift in Sources */,
 				73C5ACCE21A9022000BFF89F /* PKAlbumNavViewController.swift in Sources */,
 				73C5ACBA21A7FFDD00BFF89F /* PKAsync.swift in Sources */,
 				73C5ACE921ABE78900BFF89F /* PKConfiguration.swift in Sources */,
 				73C5ACF721ABFB9500BFF89F /* PKPreviewBottomView.swift in Sources */,
 				73C5AC9621A7ECA300BFF89F /* AppDelegate.swift in Sources */,
+				735720BF21B7775800DEFE46 /* PKAddPhotoGridView.swift in Sources */,
 				734A4DA421B4E01A00C751F7 /* PKGridBottomView.swift in Sources */,
-				73C5ACB521A7FD8700BFF89F /* PKLoadingTool.swift in Sources */,
 				73C5ACF921AC0CEB00BFF89F /* PKPreviewCell.swift in Sources */,
 				73C5ACB621A7FD8700BFF89F /* PKLoadingView.swift in Sources */,
+				735720C321B787BD00DEFE46 /* PKAddPhotoGridCell.swift in Sources */,
 				7333B55A21AE8164006EF9AE /* PKPhotoZoomView.swift in Sources */,
 				73C5ACBD21A8025C00BFF89F /* PKAlbumListCell.swift in Sources */,
 				73C5ACC421A80A5500BFF89F /* PKConstants.swift in Sources */,

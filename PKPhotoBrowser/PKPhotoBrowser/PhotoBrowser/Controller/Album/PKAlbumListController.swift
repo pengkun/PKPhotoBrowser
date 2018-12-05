@@ -15,7 +15,6 @@ class PKAlbumListController: PKBaseViewController {
     //MARK: - ui
     fileprivate let listView: UITableView = UITableView()
     //MARK: - property
-    weak var pickDelegate: PKAlbumNavViewControllerDelegate?
     fileprivate let imageManager: PHImageManager = PHImageManager()
     fileprivate var collections: [(assetCollection:PHAssetCollection, assetsFetchResult: PHFetchResult<PHAsset>)] = []
     
@@ -72,7 +71,7 @@ private extension PKAlbumListController {
     }
     
     func initDatas() {
-        self.ldt_loadingCountAdd()
+        self.loading()
         PKAsync.async(serial: true) {
 
             let fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
@@ -96,7 +95,7 @@ private extension PKAlbumListController {
             })
             PKAsync.main {
                 self.listView.reloadData()
-                self.ldt_loadingCountReduce()
+                self.loadingHide()
             }
         }
     }

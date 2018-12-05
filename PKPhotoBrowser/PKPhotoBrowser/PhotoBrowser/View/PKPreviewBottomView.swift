@@ -75,7 +75,7 @@ private extension PKPreviewBottomView {
         
         let scale = UIScreen.main.scale
         let cellSize = flowLayout.itemSize
-        self.thumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+        self.thumbnailSize = CGSize(width: cellSize.width * scale * 2, height: cellSize.height * scale * 2)
         
         self.photoCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         self.photoCollectionView.backgroundColor = UIColor.clear
@@ -191,11 +191,18 @@ extension PKPreviewBottomView: UICollectionViewDataSource {
                 self.newAsset = nil
             }
             cell.representedAssetIdentifier = asset.localIdentifier
-            PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
-                if cell.representedAssetIdentifier == asset.localIdentifier {
-                    cell.thumbnailImage = image
-                }
-            })
+            
+            if asset.editedImage == nil {
+                PKImageManager.shared.getThumbnailImage(asset: asset, thumbnailSize: self.thumbnailSize, completion: { (image) in
+                    if cell.representedAssetIdentifier == asset.localIdentifier {
+                        cell.thumbnailImage = image
+                    }
+                })
+            }
+            else {
+                cell.thumbnailImage = asset.editedImage
+            }
+            
         }
         
         return cell

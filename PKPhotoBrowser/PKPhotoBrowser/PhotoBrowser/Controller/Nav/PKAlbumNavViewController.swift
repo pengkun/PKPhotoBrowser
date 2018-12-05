@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 protocol PKAlbumNavViewControllerDelegate: class {
-    func albumController(didFinishPickingPhotos photos: [PHAsset])
+    func albumController(didFinishPickingPhotos photos: [UIImage])
 }
 
 class PKAlbumNavViewController: UINavigationController {
