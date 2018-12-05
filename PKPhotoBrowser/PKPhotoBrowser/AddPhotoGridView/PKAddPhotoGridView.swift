@@ -24,6 +24,9 @@ class PKAddPhotoGridView: UIView {
     private var isFirstLoad: Bool = true
     var maxCount: Int = 9
     var selectModel: PKSelectPhotosModel!
+    fileprivate var lineCount: Int {
+        return PKConfiguration.shared.addGridLineCount
+    }
     
     deinit {
         debugPrint("\(type(of:self)) deinit")
@@ -49,13 +52,13 @@ class PKAddPhotoGridView: UIView {
     
     override var intrinsicContentSize: CGSize {
         let shape: CGFloat = 5
-        let layoutWidth = (self.bounds.width-shape*2)/3
-        if self.selectModel.selectPhotos.count < 3 {
+        let layoutWidth = (self.bounds.width-shape*CGFloat(self.lineCount-1))/CGFloat(self.lineCount)
+        if self.selectModel.selectPhotos.count < self.lineCount {
             return CGSize(width: CGFloat(UIView.noIntrinsicMetric), height: layoutWidth == 0 ? 90 : layoutWidth)
         }
         else {
             let count = Double(self.selectModel.selectPhotos.count == self.maxCount ? self.selectModel.selectPhotos.count : self.selectModel.selectPhotos.count+1)
-            return CGSize(width: CGFloat(UIView.noIntrinsicMetric), height: (layoutWidth+shape)*CGFloat(ceil(count/3)))
+            return CGSize(width: CGFloat(UIView.noIntrinsicMetric), height: (layoutWidth+shape)*CGFloat(ceil(count/Double(self.lineCount))))
         }
     }
     
@@ -74,7 +77,7 @@ private extension PKAddPhotoGridView {
     
     func setupViews() {
         let shape: CGFloat = 5
-        let layoutWidth = (self.bounds.width-shape*2)/3
+        let layoutWidth = (self.bounds.width-shape*CGFloat(self.lineCount-1))/CGFloat(self.lineCount)
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: layoutWidth, height: layoutWidth)
         flowLayout.minimumLineSpacing = shape

@@ -179,11 +179,11 @@
 				73C5AC9521A7ECA300BFF89F /* AppDelegate.swift */,
 				73C5AC9F21A7ECA400BFF89F /* Assets.xcassets */,
 				73C5ACAA21A7ED9000BFF89F /* PhotoBrowser */,
+				735720C021B7878F00DEFE46 /* AddPhotoGridView */,
 				73C5AC9721A7ECA300BFF89F /* ViewController.swift */,
 				73C5AC9921A7ECA300BFF89F /* Main.storyboard */,
 				73C5ACA121A7ECA400BFF89F /* LaunchScreen.storyboard */,
 				73C5ACA421A7ECA400BFF89F /* Info.plist */,
-				735720C021B7878F00DEFE46 /* AddPhotoGridView */,
 			);
 			path = PKPhotoBrowser;
 			sourceTree = "<group>";

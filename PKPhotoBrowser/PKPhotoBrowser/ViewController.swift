@@ -18,6 +18,10 @@ class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let configuration = PKConfiguration.shared
+        configuration.selectMaxCount = 9
+        
+        configuration.addGridLineCount = 4
         
         self.addGridView.selectModel = self.selectModol
         self.addGridView.delegate = self
@@ -51,6 +55,8 @@ class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
 
 extension ViewController: PKAddPhotoGridViewDelegate {
     func addGridViewAddDidSelect() {
+        let configuration = PKConfiguration.shared
+        configuration.selectedCount = self.selectModol.selectPhotos.count
         let nav = PKAlbumNavViewController(delegate: self)
         self.navigationController?.present(nav, animated: true , completion: nil)
     }

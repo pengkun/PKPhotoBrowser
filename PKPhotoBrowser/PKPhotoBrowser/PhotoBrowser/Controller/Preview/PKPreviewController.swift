@@ -171,7 +171,8 @@ private extension PKPreviewController {
         }
         else {
             let maxCount = PKConfiguration.shared.selectMaxCount
-            if self.selectAssetsModel!.selectAssets.count >= maxCount {
+            let preSelectedCount = PKConfiguration.shared.selectedCount
+            if self.selectAssetsModel!.selectAssets.count+preSelectedCount >= maxCount {
                 let alertVC = UIAlertController(title: "你最多可以选择\(maxCount)张照片", message: nil, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction(title: "确定", style: .cancel, handler: nil))
                 self.present(alertVC, animated: true, completion: nil)
