@@ -55,16 +55,48 @@ class ViewController: UIViewController, PKAlbumNavViewControllerDelegate {
 
 extension ViewController: PKAddPhotoGridViewDelegate {
     func addGridViewAddDidSelect() {
-        let configuration = PKConfiguration.shared
-        configuration.selectedCount = self.selectModol.selectPhotos.count
-        let nav = PKAlbumNavViewController(delegate: self)
-        self.navigationController?.present(nav, animated: true , completion: nil)
+        PHPhotoLibrary.requestAuthorization { (status) in
+            if status == .restricted || status == .denied {
+                self.privacyAlert()
+            }
+            else {
+                let configuration = PKConfiguration.shared
+                configuration.selectedCount = self.selectModol.selectPhotos.count
+                let nav = PKAlbumNavViewController(delegate: self)
+                self.navigationController?.present(nav, animated: true , completion: nil)
+            }
+        }
     }
     
     func addGridView(didSelect item: Int) {
         let previewVC = PKPreviewDeleteController(model: self.selectModol)
         previewVC.gridSelectItem = item
         self.navigationController?.pushViewController(previewVC, animated: true)
+    }
+    
+    // 提示
+    func privacyAlert() {
+        let vc = UIAlertController(title: "提示", message: "没有权限", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        vc.addAction(cancelAction)
+        let goAction = UIAlertAction(title: "去设置", style: .default) { (_) in
+            self.openAppPrivacySetting()
+        }
+        vc.addAction(goAction)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    // 跳转到app隐私权限页面
+    func openAppPrivacySetting() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {return}
+        
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
 }
 
